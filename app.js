@@ -44,11 +44,6 @@ function findPearl() {
     loadPage();
 }
 
-// function playAgain() {
-//     gameState = 'guess';
-//     loadPage();
-// }
-
 // display
 function displayShells() {
     if (gameState === 'guess') {
@@ -155,9 +150,11 @@ guess3.addEventListener('click', () => {
     findPearl();
     displayResults();
 });
-// playAgainButton.addEventListener('click', () => {
-//     playAgain();
-// });
+
+playAgainButton.addEventListener('click', () => {
+    gameState = 'guess';
+    loadPage();
+});
 
 //* Run page load code
 loadPage();
