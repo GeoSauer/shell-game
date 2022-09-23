@@ -1,6 +1,7 @@
 /* Imports */
 import { getRandomItem } from './utils.js';
 
+// grab DOM elements
 const guess1 = document.getElementById('guess-1');
 const guess2 = document.getElementById('guess-2');
 const guess3 = document.getElementById('guess-3');
@@ -21,7 +22,14 @@ const guesses = document.getElementById('guesses');
 // const results = document.getElementById('results');
 const playAgainButton = document.getElementById('play-again-button');
 
+const winsDisplay = document.getElementById('wins-display');
+const lossesDisplay = document.getElementById('losses-display');
+const totalDisplay = document.getElementById('total-display');
+
 /* State */
+let wins = 0;
+let losses = 0;
+
 let gameState = 'guess'; // 'guess' or 'results'
 let pick = ''; // 'guess1', 'guess2', or 'guess3'
 let pearl = ''; // 'pearl1', 'pearl2', or 'pearl3'
@@ -33,6 +41,12 @@ function loadPage() {
     } else if (gameState === 'results') {
         displayResults();
     }
+}
+
+function displayScoreboard() {
+    winsDisplay.textContent = wins;
+    lossesDisplay.textContent = losses;
+    totalDisplay.textContent = wins + losses;
 }
 
 const locations = [pearl1, pearl2, pearl3];
@@ -75,54 +89,63 @@ function displayResults() {
         shell1.classList.add('reveal');
         display1.classList.remove('hidden');
         display1.textContent = 'You found it!';
+        wins++;
     }
     if (pick === 'shell1' && pearl === pearl2) {
         shell1.classList.add('reveal');
         shell2.classList.add('reveal');
         display1.classList.remove('hidden');
         display1.textContent = 'No pearl here!';
+        losses++;
     }
     if (pick === 'shell1' && pearl === pearl3) {
         shell1.classList.add('reveal');
         shell3.classList.add('reveal');
         display1.classList.remove('hidden');
         display1.textContent = 'No pearl here!';
+        losses++;
     }
 
     if (pick === 'shell2' && pearl === pearl2) {
         shell2.classList.add('reveal');
         display2.classList.remove('hidden');
         display2.textContent = 'You found it!';
+        wins++;
     }
     if (pick === 'shell2' && pearl === pearl1) {
         shell2.classList.add('reveal');
         shell1.classList.add('reveal');
         display2.classList.remove('hidden');
         display2.textContent = 'No pearl here!';
+        losses++;
     }
     if (pick === 'shell2' && pearl === pearl3) {
         shell2.classList.add('reveal');
         shell3.classList.add('reveal');
         display2.classList.remove('hidden');
         display2.textContent = 'No pearl here!';
+        losses++;
     }
 
     if (pick === 'shell3' && pearl === pearl3) {
         shell3.classList.add('reveal');
         display3.classList.remove('hidden');
         display3.textContent = 'You found it!';
+        wins++;
     }
     if (pick === 'shell3' && pearl === pearl1) {
         shell3.classList.add('reveal');
         shell1.classList.add('reveal');
         display3.classList.remove('hidden');
         display3.textContent = 'No pearl here!';
+        losses++;
     }
     if (pick === 'shell3' && pearl === pearl2) {
         shell3.classList.add('reveal');
         shell2.classList.add('reveal');
         display3.classList.remove('hidden');
         display3.textContent = 'No pearl here!';
+        losses++;
     }
 }
 
@@ -133,6 +156,7 @@ guess1.addEventListener('click', () => {
     displayShells();
     findPearl();
     displayResults();
+    displayScoreboard();
 });
 
 guess2.addEventListener('click', () => {
@@ -141,6 +165,7 @@ guess2.addEventListener('click', () => {
     displayShells();
     findPearl();
     displayResults();
+    displayScoreboard();
 });
 
 guess3.addEventListener('click', () => {
@@ -149,6 +174,7 @@ guess3.addEventListener('click', () => {
     displayShells();
     findPearl();
     displayResults();
+    displayScoreboard();
 });
 
 playAgainButton.addEventListener('click', () => {
